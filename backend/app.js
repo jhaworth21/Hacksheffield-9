@@ -30,10 +30,12 @@ const auth_config = {
 // req.isAuthenticated is provided from the auth router
 app.get('/', (req, res) => {
     res.send('Hello World!');
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
 const usersRouters = require('./routes/users.js');
 app.use('/users', usersRouters);
+
+const loggedinRouter = require('./routes/isloggedin.js');
+app.use('/api/isloggedin', loggedinRouter);
 
 app.listen(port, () => console.log(`Server is running on port`, port));
