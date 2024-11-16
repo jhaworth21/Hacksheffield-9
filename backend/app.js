@@ -1,5 +1,7 @@
+require ('dotenv').config()
 const express = require('express');
 const { auth } = require('express-openid-connect');
+const mongoose = require('mongoose')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,3 +27,15 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server is running on port`, port));
+
+mongoose.connect(process.env.DATABASE_URL)
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('Connected to database'))
+
+app.use(express.json())
+
+const usersRouters = require('./routes/users.js')
+const tasksRouters = require('./routes/tasks.js')  
+app.use('/users', usersRouters)
+app.use('/users', tasksRouters)
