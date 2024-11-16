@@ -1,12 +1,16 @@
-import React, {useEffect, useRef} from 'react';
-import "./cameraComponent.css"
-import switchCameraImage from "../assets/switch_camera.png"
+import React, {useEffect, useRef, useState} from 'react';
+import "./cameraComponent.css";
+import switchCameraImage from "../assets/switch-camera.svg";
+import backButtonImage from "../assets/back.svg";
+import {useNavigate} from "react-router-dom";
 
 const CameraComponent = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [currentCamera, setCurrentCamera] = useState<'user' | 'environment'>('user');
+  const navigate = useNavigate();
 
-  const startCamera = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({video: true});
+  const startCamera = async (cameraType: 'user' | 'environment' = 'user') => {
+    const stream = await navigator.mediaDevices.getUserMedia({video: { facingMode: cameraType }});
     if (videoRef.current) {
       const video = videoRef.current as HTMLVideoElement;
       video.srcObject = stream;
@@ -25,19 +29,35 @@ const CameraComponent = () => {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         const image = canvas.toDataURL('image/png');
-        console.log(image)
+        console.log(image);
       }
     }
   };
 
+  const switchCamera = () => {
+    setCurrentCamera(prevCamera => prevCamera === 'user' ? 'environment' : 'user');
+  };
+
+  const goBack = () => {
+    navigate('/tasks')
+  }
+
   useEffect(() => {
-    startCamera();
-  }, [])
+    startCamera(currentCamera);
+  }, [currentCamera]);
 
   return (
     <div className="cameraComponent">
-      <video ref={videoRef} autoPlay className="cameraComponent__video"/>
+      <button onClick={switchCamera} className="cameraComponent__switch_button">
+        <img src={switchCameraImage} alt="Switch Camera" className="cameraComponent__switch_button__image"/>
+      </button>
 
+      <button onClick={goBack} className="cameraComponent__back_button">
+        <img src={backButtonImage} alt="Switch Camera"
+             className="cameraComponent__back_button__image"/>
+      </button>
+
+      <video ref={videoRef} autoPlay className="cameraComponent__video"/>
       <button onClick={takePhoto} className="cameraComponent__capture_button"></button>
     </div>
   );
