@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const Index = () => {
+const Home = () => {
   return (
     <div>
       <h1>Home</h1>
@@ -10,4 +10,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Home;
