@@ -2,19 +2,11 @@ require ('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const { auth } = require('express-openid-connect');
-<<<<<<< HEAD
-const mongoose = require('mongoose')
-=======
-require ('dotenv').config();
->>>>>>> main
-
 const app = express();
 const port = process.env.PORT || 3000;
 
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection;
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Connected to database'));
 
 const auth_config = {
     authRequired: false,
@@ -28,8 +20,6 @@ const auth_config = {
   // auth router attaches /login, /logout, and /callback routes to the baseURL
   app.use(auth(auth_config));
 
-  app.use(express.json());
-
 // app.use(express.static(path.join(__dirname, "public")));
 
 // req.isAuthenticated is provided from the auth router
@@ -38,21 +28,11 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-<<<<<<< HEAD
-app.listen(port, () => console.log(`Server is running on port`, port));
-
-mongoose.connect(process.env.DATABASE_URL)
-const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('Connected to database'))
 
 app.use(express.json())
 
-const usersRouters = require('./routes/users.js')
-const tasksRouters = require('./routes/tasks.js')  
-app.use('/users', usersRouters)
-app.use('/users', tasksRouters)
-=======
 const usersRouters = require('./routes/users.js');
 const tasksRouters = require('./routes/tasks.js');
 app.use('/api/users', usersRouters);
@@ -62,4 +42,3 @@ const loggedinRouter = require('./routes/isloggedin.js');
 app.use('/api/isloggedin', loggedinRouter);
 
 app.listen(port, () => console.log(`Server is running on port`, port));
->>>>>>> main
