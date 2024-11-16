@@ -1,23 +1,21 @@
 {
-  "name": "please-make-me-study-backend",
-  "version": "1.0.0",
-  "main": "app.js",
+  "name": "backend",
+  "version": "0.0.0",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon --env-file=cfg/.env app.js"
   },
-  "author": "Bravewave",
+  "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "nodemon": "^3.1.7"
   },
   "dependencies": {
-    "body-parser": "^1.20.3",
+    "backend": "file:",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "express-openid-connect": "^2.17.1",
-    "mongoose": "^8.8.1",
-    "multer": "^1.4.5-lts.1",
-    "please-make-me-study-backend": "file:"
+    "mongodb": "^6.10.0",
+    "mongoose": "^8.8.1"
   }
 }
