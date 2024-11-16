@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import TaskCard from "../components/taskCard.tsx";
 import Task from "../types/task.ts";
+import plusButton from "../assets/plus-icon.svg";
 import "./tasks.css"
 
 const Tasks = () => {
@@ -40,7 +41,9 @@ const Tasks = () => {
       <div className="tasks__title-bar">
         <h1>Goals</h1>
 
-        <button className="tasks__title-bar__add-task" onClick={addTask}>Add goal</button>
+        <button className="tasks__title-bar__add-task" onClick={addTask}>
+          <img src={plusButton} alt="Add goal" className="tasks__title-bar__add-task__image"/>
+        </button>
       </div>
 
 
@@ -49,8 +52,6 @@ const Tasks = () => {
           <TaskCard key={task.id} task={task}/>
         ))}
       </div>
-
-      <Link to={"/"}>Home</Link>
     </div>
   );
 };

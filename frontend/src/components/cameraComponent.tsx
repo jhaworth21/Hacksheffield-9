@@ -6,14 +6,36 @@ import {useNavigate} from "react-router-dom";
 
 const CameraComponent = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const stream = useRef<MediaStream | null>(null);
+  const isSwitchingCamera = useRef<boolean>(false);
+  const streamCamera = useRef<string | null>(null);
   const [currentCamera, setCurrentCamera] = useState<'user' | 'environment'>('user');
   const navigate = useNavigate();
 
-  const startCamera = async (cameraType: 'user' | 'environment' = 'user') => {
-    const stream = await navigator.mediaDevices.getUserMedia({video: { facingMode: cameraType }});
-    if (videoRef.current) {
-      const video = videoRef.current as HTMLVideoElement;
-      video.srcObject = stream;
+  const startCamera = async (facingMode: string) => {
+    if (isSwitchingCamera.current) {
+      return;
+    }
+
+    if (facingMode !== streamCamera.current) {
+      isSwitchingCamera.current = true;
+      streamCamera.current = facingMode;
+      if (stream.current) {
+        stream.current?.getTracks().forEach(track => track.stop());
+      }
+
+      navigator.mediaDevices.getUserMedia({video: {facingMode: facingMode}}).then((_stream) => {
+        stream.current = _stream;
+
+        if (videoRef.current) {
+          const video = videoRef.current as HTMLVideoElement;
+          video.srcObject = _stream;
+        }
+      }).catch((error) => {
+        alert("Error accessing camera: " + error.message);
+      }).finally(() => {
+        isSwitchingCamera.current = false;
+      })
     }
   };
 
@@ -47,13 +69,20 @@ const CameraComponent = () => {
   }
 
   useEffect(() => {
-    startCamera(currentCamera);
+    startCamera(currentCamera === 'user' ? 'user' : 'environment');
+
+    return () => {
+      if (stream.current) {
+        stream.current?.getTracks().forEach(track => track.stop());
+      }
+    }
   }, [currentCamera]);
 
   return (
     <div className="cameraComponent">
       <button onClick={switchCamera} className="cameraComponent__switch_button">
-        <img src={switchCameraImage} alt="Switch Camera" className="cameraComponent__switch_button__image"/>
+        <img src={switchCameraImage} alt="Switch Camera"
+             className="cameraComponent__switch_button__image"/>
       </button>
 
       <button onClick={goBack} className="cameraComponent__back_button">
