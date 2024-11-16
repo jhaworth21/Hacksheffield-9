@@ -1,8 +1,10 @@
 .createGoal {
     margin: 10px;
+    background-color: var(--color-1);
 }
 
 .createTask__back_button {
+    margin: 1.5rem;
     background: none;
     border: none;
 }
@@ -12,7 +14,21 @@
 }
 
 .createTask__title {
-    margin: 10px 0 20px 0;
+    margin: 5% 0 2% 0;
+    text-align: center;
+}
+
+.createTask__main_content {
+    position: absolute;
+    top: 27.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    }
+
+.createGoal form {
+    width: 75%;
+    margin: auto;
 }
 
 .createTask__form_section {
@@ -21,15 +37,31 @@
     margin-bottom: 20px;
 }
 
-.createTask__submit {
-    width: 100%;
+.createGoal label {
+    width: 75%;
+    margin: auto;
+}
 
-    background-color: #CBDCEB;
-    padding: 10px;
+.createGoal #title{
+    width: 75%;
+    margin: auto;
+}
+
+.createTask__submit {
+    background-color: var(--colour-2);
+    display: block;
+    width: 65%;
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
+    margin: auto;
     border: none;
     border-radius: 10px;
 }
 
 .createTask__form_section textarea {
     resize: vertical;
+    min-height: 5rem;
+    width: 75%;
+    margin: auto;
 }

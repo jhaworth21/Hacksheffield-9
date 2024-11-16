@@ -45,7 +45,7 @@ const TaskCard = ({task}: TaskCardProps) => {
   }
 
   return (
-    <div className="taskCard" onClick={handleTaskCardClick}>
+    <div className={`taskCard ${hasCompletedToday ? '__completed' : ''}`} onClick={handleTaskCardClick}>
       <span>{task.title}</span>
 
       <div className="taskCard__actions">

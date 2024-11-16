@@ -1,16 +1,17 @@
 .taskCard {
+    width: 75%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
 
-    background-color: #CBDCEB;
+    background-color: var(--colour-4);
+    margin: auto;
     margin-bottom: 10px;
     border-radius: 10px;
 
     cursor: pointer;
-    tab-index: 0;
 }
 
 .taskCard__actions {
@@ -18,11 +19,22 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 3% 3% 3% 3%;
 }
 
 .taskCard__actions__flame {
     height: 30px;
     margin-right: 10px;
+}
+
+.taskCard.__completed {
+    background-color: var(--colour-3);
+}
+
+span {
+    font-weight: bold;
+    padding-left: 3%;
+    padding-right: 3%;
 }
 
 .taskCard__actions__flame--greyscale {

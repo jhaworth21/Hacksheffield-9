@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require("../models/user");
 
 router.get("/", async (req, res) => {
-    const userId = req.params.id; // `auth0Id` of the user
+    const userId = req.oidc.user.sub; // `auth0Id` of the user
 
     try {
         // Find the user by their `auth0Id`
