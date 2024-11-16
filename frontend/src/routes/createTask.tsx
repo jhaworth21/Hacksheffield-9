@@ -27,32 +27,35 @@ const CreateTask = () => {
   };
 
   return (
-    <div>
+    <div className="createGoal">
       <button onClick={goBack} className="createTask__back_button">
         <img src={backButtonImage} alt="Back" className="createTask__back_button__image" />
       </button>
-      <h1>Create Goal</h1>
+      <h1 className="createTask__title">Create Goal</h1>
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div  className="createTask__form_section">
           <label htmlFor="title">Title:</label>
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            placeholder="Go to the gym"
             required
           />
         </div>
-        <div>
-          <label htmlFor="description">Description:</label>
+        <div className="createTask__form_section">
+          <label htmlFor="description">Description of what a successful image will be of:</label>
           <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="A photo of me in the gym, for example lifing weights or running on the treadmill"
+            required
           />
         </div>
-        <button type="submit">Create Task</button>
+        <button type="submit" className="createTask__submit">Create goal 🔥</button>
       </form>
     </div>
   );
