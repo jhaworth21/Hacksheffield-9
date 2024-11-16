@@ -1,4 +1,4 @@
-GET http://localhost:3000/users
+GET http://localhost:3000/api/users
 
 ###
 
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/users/6738d7bd965cb2e224c7f09f/tasks
+GET http://localhost:3000/api/users/6738d7bd965cb2e224c7f09f/tasks
 
 ###
 

@@ -55,20 +55,25 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.patch('/:id/tasks/:taskId', async (req, res) => {
+router.patch('/', async (req, res) => {
+    const userId = req.oidc.user.sub; // Auth0 ID of the user
+
     try {
-        const user = await User.findById(req.params.id);
+        // Find the user by their Auth0 ID
+        const user = await User.findOne({ auth0Id: userId });
 
         if (!user) {
-            return res.status(404).json({message: 'User not found.'});
+            return res.status(404).json({ message: 'User not found.' });
         }
 
-        const task = user.tasks.find((t) => t.taskId === parseInt(req.params.taskId));
+        // Find the task by its taskId
+        const task = user.tasks.find((t) => t._id === parseInt(req.params._id));
 
         if (!task) {
-            return res.status(404).json({message: 'Task not found.'});
+            return res.status(404).json({ message: 'Task not found.' });
         }
 
+        // Update the task fields
         if (req.body.title != null) {
             task.title = req.body.title;
         }
@@ -78,34 +83,43 @@ router.patch('/:id/tasks/:taskId', async (req, res) => {
         }
 
         await user.save();
-        res.json(task);
+        res.json({ message: 'Task updated successfully.', task });
     } catch (err) {
-        res.status(500).json({message: err.message});
+        console.error('Error updating task:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
-router.delete('/:id/tasks/:taskId', async (req, res) => {
+
+router.delete('/', async (req, res) => {
+    const userId = req.oidc.user.sub; // Auth0 ID of the user
+
     try {
-        const user = await User.findById(req.params.id);
+        // Find the user by their Auth0 ID
+        const user = await User.findOne({ auth0Id: userId });
 
         if (!user) {
-            return res.status(404).json({message: 'User not found.'});
+            return res.status(404).json({ message: 'User not found.' });
         }
 
-        const taskIndex = user.tasks.findIndex((t) => t.taskId === parseInt(req.params.taskId));
+        // Find the task index by its taskId
+        const taskIndex = user.tasks.findIndex((t) => t._id === parseInt(req.params._id));
 
         if (taskIndex === -1) {
-            return res.status(404).json({message: 'Task not found.'});
+            return res.status(404).json({ message: 'Task not found.' });
         }
 
+        // Remove the task from the array
         user.tasks.splice(taskIndex, 1);
         await user.save();
 
-        res.json({message: 'Task deleted successfully.'});
+        res.json({ message: 'Task deleted successfully.' });
     } catch (err) {
-        res.status(500).json({message: err.message});
+        console.error('Error deleting task:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
 
 module.exports = router;
 
