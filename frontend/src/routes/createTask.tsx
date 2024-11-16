@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import backButtonImage from "../assets/back.svg";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./createTask.css";
+import {toast} from "react-toastify";
 
 const CreateTask = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
   const goBack = () => {
     navigate('/');
@@ -14,6 +16,7 @@ const CreateTask = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission
+    setIsSaving(true)
 
     const newTask = {
       title,
@@ -21,20 +24,36 @@ const CreateTask = () => {
     };
 
     // TODO send new task to server
+    fetch('/api/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTask),
+    })
+      .then((response) => {
+        setIsSaving(false)
+        if (!response.ok) {
+          throw new Error('Failed to create goal');
+        }
 
-    // After saving, navigate back to the task list
-    navigate('/');
+        // After saving, navigate back to the task list
+        toast("Goal created successfully! 🎉", {type: "success"});
+        navigate('/');
+      }).catch((error) => {
+        console.error('Error:', error);
+      })
   };
 
   return (
     <div className="createGoal">
       <button onClick={goBack} className="createTask__back_button">
-        <img src={backButtonImage} alt="Back" className="createTask__back_button__image" />
+        <img src={backButtonImage} alt="Back" className="createTask__back_button__image"/>
       </button>
       <h1 className="createTask__title">Create Goal</h1>
 
       <form onSubmit={handleSubmit}>
-        <div  className="createTask__form_section">
+        <div className="createTask__form_section">
           <label htmlFor="title">Title:</label>
           <input
             type="text"
@@ -55,7 +74,9 @@ const CreateTask = () => {
             required
           />
         </div>
-        <button type="submit" className="createTask__submit">Create goal 🔥</button>
+        <button type="submit" className="createTask__submit" disabled={isSaving}>
+          {isSaving ? 'Saving...' : 'Create goal 🔥'}
+        </button>
       </form>
     </div>
   );

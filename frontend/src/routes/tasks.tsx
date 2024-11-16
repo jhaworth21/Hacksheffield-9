@@ -4,31 +4,35 @@ import TaskCard from "../components/taskCard.tsx";
 import Task from "../types/task.ts";
 import plusButton from "../assets/plus-icon.svg";
 import "./tasks.css"
+import {toast} from "react-toastify";
 
 const Tasks = () => {
 
   const navigate = useNavigate();
 
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // TODO fetch tasks from the backend
-    setTasks([
-      {
-        id: "a",
-        title: "Work on code",
-        description: "Requires a photo of the code",
-        streak: 3,
-        lastCompleted: "2021-09-01"
-      },
-      {
-        id: "b",
-        title: "Study for math test",
-        description: "Requires a photo of the math test",
-        streak: 3,
-        lastCompleted: "2024-11-16"
-      }
-    ])
+    fetch("/api/tasks").then((response) => {
+      return response.json();
+    }).then((data) => {
+      setTasks(data.map((task) => {
+        return {
+          id: task._id,
+          title: task.title,
+          description: task.description,
+          streak: task.streakCount,
+          lastCompleted: task.lastCompleted
+        }
+      }))
+
+      setLoading(false)
+    }).catch((error) => {
+      toast("Failed to fetch tasks", {type: "error"})
+      console.log(error)
+    })
   }, []);
 
   const addTask = () => {
@@ -48,7 +52,11 @@ const Tasks = () => {
 
 
       <div className="tasks__tasks-wrapper">
-        {tasks.map((task) => (
+        {
+          loading && <p>Loading tasks...</p>
+        }
+
+        {!loading && tasks.map((task) => (
           <TaskCard key={task.id} task={task}/>
         ))}
       </div>
