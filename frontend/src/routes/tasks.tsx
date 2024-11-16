@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import TaskCard from "../components/taskCard.tsx";
 import Task from "../types/task.ts";
+import plusButton from "../assets/plus-icon.svg";
+import "./tasks.css"
 
 const Tasks = () => {
+
+  const navigate = useNavigate();
 
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -27,18 +31,27 @@ const Tasks = () => {
     ])
   }, []);
 
+  const addTask = () => {
+    navigate("/create-task")
+  }
+
   return (
     <div className="tasks">
-      <h1>Tasks</h1>
+
+      <div className="tasks__title-bar">
+        <h1>Goals</h1>
+
+        <button className="tasks__title-bar__add-task" onClick={addTask}>
+          <img src={plusButton} alt="Add goal" className="tasks__title-bar__add-task__image"/>
+        </button>
+      </div>
+
 
       <div className="tasks__tasks-wrapper">
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task}/>
         ))}
       </div>
-
-
-      <Link to={"/"}>Home</Link>
     </div>
   );
 };

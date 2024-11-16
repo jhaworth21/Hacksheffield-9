@@ -6,6 +6,7 @@
     height: 100vh;
     object-fit: cover;
     z-index: -1;
+    transform: scaleX(-1);
 }
 
 .cameraComponent__capture_button {
@@ -19,24 +20,39 @@
     border-radius: 50%;
     background-color: #CBDCEB;
     border: 5px solid #608BC1;
+
+    filter: drop-shadow(0 0 0.75rem black);
 }
 
 .cameraComponent__switch_button {
     position: absolute;
     top: 10px;
     right: 10px;
-}
 
-.cameraComponent__switch_button__image {
-    height: 50px;
+    background: transparent;
+    border: none;
+    filter: drop-shadow(0 0 0.75rem black);
 }
 
 .cameraComponent__back_button {
     position: absolute;
     top: 10px;
     left: 10px;
+
+    background: transparent;
+    border: none;
+    filter: drop-shadow(0 0 0.75rem black);
+}
+
+.cameraComponent__switch_button__image {
+    height: 40px;
+    /*filter: invert(1);*/
+    filter: brightness(0) saturate(100%) invert(100%) sepia(72%) saturate(1277%) hue-rotate(174deg) brightness(92%) contrast(101%);
 }
 
 .cameraComponent__back_button__image {
-    height: 50px;
+    height: 40px;
+
+    /*filter: invert(1);*/
+    filter: brightness(0) saturate(100%) invert(100%) sepia(72%) saturate(1277%) hue-rotate(174deg) brightness(92%) contrast(101%);
 }

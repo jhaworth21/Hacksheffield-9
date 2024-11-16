@@ -1,8 +1,9 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import Task from "../types/task.ts";
 import "./taskCard.css"
 import flame from "../assets/flame.svg"
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 type TaskCardProps = {
   task: Task;
@@ -34,7 +35,9 @@ const TaskCard = ({task}: TaskCardProps) => {
   const handleTaskCardClick = () => {
     // React router to /camera
     if (hasCompletedToday) {
-      alert("You have already completed this task today!")
+      toast("You have already completed this task today!", {
+        type: "error"
+      })
       return;
     }
 

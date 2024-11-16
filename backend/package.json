@@ -1,9 +1,9 @@
 {
   "name": "backend",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.0",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon --env-file=cfg/.env app.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,20 +1,20 @@
-const express = require('express')
-const router = express.Router()
-const User = require('../models/user')
+const express = require('express');
+const router = express.Router();
+const User = require('../models/user');
 
 router.get('/', async (req, res) => {
     try {
-      const users = await User.find()
-      res.json(users)
+      const users = await User.find();
+      res.json(users);
     } catch (err) {
-      res.status(500).json({ message: err.message })
+      res.status(500).json({ message: err.message });
     }
-  })
+  });
   
   // Getting One
   router.get('/:id', getUser, (req, res) => {
-    res.json(res.user)
-  })
+    res.json(res.user);
+  });
   
   // Creating one
   router.post('/', async (req, res) => {
@@ -27,14 +27,14 @@ router.get('/', async (req, res) => {
           fullName: req.body.profile?.fullName,
           profilePicture: req.body.profile?.profilePicture || ''
         }
-    })
+    });
     try {
-      const newUser = await user.save()
-      res.status(201).json(newUser)
+      const newUser = await user.save();
+      res.status(201).json(newUser);
     } catch (err) {
-      res.status(400).json({ message: err.message })
+      res.status(400).json({ message: err.message });
     }
-  })
+  });
   
   // Updating One
   router.patch('/:id', getUser, async (req, res) => {
@@ -55,12 +55,12 @@ router.get('/', async (req, res) => {
     }
     
     try {
-      const updatedUser = await res.user.save()
-      res.json(updatedUser)
+      const updatedUser = await res.user.save();
+      res.json(updatedUser);
     } catch (err) {
-      res.status(400).json({ message: err.message })
+      res.status(400).json({ message: err.message });
     }
-  })
+  });
   
   // Deleting One
   router.delete('/:id', getUser, async (req, res) => {
@@ -68,9 +68,9 @@ router.get('/', async (req, res) => {
       await res.user.deleteOne()
       res.json({ message: 'Deleted User' })
     } catch (err) {
-      res.status(500).json({ message: err.message })
+      res.status(500).json({ message: err.message });
     }
-  })
+  });
   
   async function getUser(req, res, next) {
     let user;
@@ -88,4 +88,4 @@ router.get('/', async (req, res) => {
   }
   
 
-module.exports = router
+module.exports = router;
