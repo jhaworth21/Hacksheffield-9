@@ -1,7 +1,7 @@
 {
   "name": "please-make-me-study-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "dev": "nodemon server.js"
   },
@@ -12,19 +12,12 @@
     "nodemon": "^3.1.7"
   },
   "dependencies": {
-    "express": "^4.21.1",
-    "mongoose": "^8.8.1",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-openid-connect": "^2.17.1",
+    "mongoose": "^8.8.1",
     "multer": "^1.4.5-lts.1",
     "please-make-me-study-backend": "file:"
-  "name": "please-make-me-study-backend",
-  "version": "0.0.0",
-  "description": "PMMS Backend",
-  "main": "app.js",
-  "scripts": {
-    "test": "nodemon app.js"
-  },
+  }
 }
