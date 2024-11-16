@@ -34,7 +34,9 @@ app.get('/', (req, res) => {
 });
 
 const usersRouters = require('./routes/users.js');
-app.use('/users', usersRouters);
+const tasksRouters = require('./routes/tasks.js');
+app.use('/api/users', usersRouters);
+app.use('/api/tasks', tasksRouters);
 
 const loggedinRouter = require('./routes/isloggedin.js');
 app.use('/api/isloggedin', loggedinRouter);
