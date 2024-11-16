@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
-  id: { type: Number, default: 0 },
+  taskId: { type: Number, default: 0 },
   title: { type: String, required: true },
   description: { type: String, required: true },
   streakCount: { type: Number, default: 0 },
   lastCompleted: { type: Date }
-});
+}, { _id: false });
 
 const profileSchema = new mongoose.Schema({
   fullName: { type: String, required: true },

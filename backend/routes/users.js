@@ -75,7 +75,7 @@ router.get('/', async (req, res) => {
   async function getUser(req, res, next) {
     let user;
     try {
-      user = await User.findById(req.params.id); // No lean() here
+      user = await User.findById(req.params.id);
       if (user == null) {
         return res.status(404).json({ message: 'Cannot find user' });
       }
@@ -83,7 +83,7 @@ router.get('/', async (req, res) => {
       return res.status(500).json({ message: err.message });
     }
   
-    res.user = user; // Mongoose document
+    res.user = user; 
     next();
   }
   
