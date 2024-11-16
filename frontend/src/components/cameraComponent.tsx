@@ -58,7 +58,7 @@ const CameraComponent = () => {
 
         // TODO send image to server
 
-        navigate('/tasks')
+        navigate('/')
       }
     }
   };
@@ -68,7 +68,7 @@ const CameraComponent = () => {
   };
 
   const goBack = () => {
-    navigate('/tasks')
+    navigate('/')
   }
 
   useEffect(() => {

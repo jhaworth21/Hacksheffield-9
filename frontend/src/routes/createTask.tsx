@@ -9,7 +9,7 @@ const CreateTask = () => {
   const [description, setDescription] = useState('');
 
   const goBack = () => {
-    navigate('/tasks');
+    navigate('/');
   };
 
   const handleSubmit = (e) => {
@@ -23,7 +23,7 @@ const CreateTask = () => {
     // TODO send new task to server
 
     // After saving, navigate back to the task list
-    navigate('/tasks');
+    navigate('/');
   };
 
   return (
