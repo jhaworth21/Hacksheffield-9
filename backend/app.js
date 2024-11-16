@@ -29,6 +29,7 @@ const auth_config = {
 
 // req.isAuthenticated is provided from the auth router
 app.get('/', (req, res) => {
+    console.log(req.oidc.isAuthenticated())
     res.send('Hello World!');
 });
 
