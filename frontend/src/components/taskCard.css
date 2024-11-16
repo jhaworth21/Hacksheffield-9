@@ -1,0 +1,30 @@
+.taskCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    background-color: #CBDCEB;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+    cursor: pointer;
+    tab-index: 0;
+}
+
+.taskCard__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskCard__actions__flame {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.taskCard__actions__flame--greyscale {
+    filter: grayscale(100%);
+}
