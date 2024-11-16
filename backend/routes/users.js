@@ -22,9 +22,9 @@ router.get('/', async (req, res) => {
         auth0Id: req.body.auth0Id,
         username: req.body.username,
         email: req.body.email,
-        tasks: req.body.tasks || [], 
+        tasks: [], 
         profile: {
-          fullName: req.body.profile?.fullName || '',
+          fullName: req.body.profile?.fullName,
           profilePicture: req.body.profile?.profilePicture || ''
         }
     });
@@ -38,13 +38,22 @@ router.get('/', async (req, res) => {
   
   // Updating One
   router.patch('/:id', getUser, async (req, res) => {
-    if (req.body.name != null) {
-      res.user.name = req.body.name;
+    if (req.body.username != null) {
+      res.user.username = req.body.username
     }
-    //change
-    if (req.body.subscribedToChannel != null) {
-      res.subscriber.subscribedToChannel = req.body.subscribedToChannel;
+
+    if (req.body.email != null) {
+        res.user.email = req.body.email;
     }
+
+    if (req.body.profile?.fullName != null) {
+    res.user.profile.fullName = req.body.profile.fullName;
+    }
+
+    if (req.body.profile?.profilePicture != null) {
+        res.user.profile.profilePicture = req.body.profile.profilePicture;
+    }
+    
     try {
       const updatedUser = await res.user.save();
       res.json(updatedUser);
@@ -56,26 +65,27 @@ router.get('/', async (req, res) => {
   // Deleting One
   router.delete('/:id', getUser, async (req, res) => {
     try {
-      await res.user.remove();
-      res.json({ message: 'Deleted User' });
+      await res.user.deleteOne()
+      res.json({ message: 'Deleted User' })
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
   });
   
-  async function getUser (req, res, next) {
+  async function getUser(req, res, next) {
     let user;
     try {
-      user = await User.findById(req.params.id);
+      user = await User.findById(req.params.id); // No lean() here
       if (user == null) {
-        return res.status(404).json({ message: 'Cannot find subscriber' });
+        return res.status(404).json({ message: 'Cannot find user' });
       }
     } catch (err) {
       return res.status(500).json({ message: err.message });
     }
   
-    res.user = user;
+    res.user = user; // Mongoose document
     next();
-  };
+  }
+  
 
 module.exports = router;
