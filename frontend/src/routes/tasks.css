@@ -1,0 +1,9 @@
+.tasks__title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tasks__title-bar__add-task {
+
+}
