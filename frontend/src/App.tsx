@@ -10,7 +10,6 @@ import RequireSignedIn from "./components/requireSignedIn.tsx";
 function App() {
   return (
     <>
-      {/*<Header />*/}
       <RequireSignedIn>
         <BrowserRouter>
           <Routes>
