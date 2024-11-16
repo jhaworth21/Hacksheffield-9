@@ -6,6 +6,7 @@
     height: 100vh;
     object-fit: cover;
     z-index: -1;
+    transform: scaleX(-1);
 }
 
 .cameraComponent__capture_button {
