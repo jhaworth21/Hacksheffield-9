@@ -18,7 +18,6 @@ const auth_config = {
 
 // app.use(express.static(path.join(__dirname, "public")));
 
-
 // req.isAuthenticated is provided from the auth router
 app.get('/', (req, res) => {
     res.send('Hello World!');
