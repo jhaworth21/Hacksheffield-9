@@ -3,6 +3,7 @@ import "./cameraComponent.css";
 import switchCameraImage from "../assets/switch-camera.svg";
 import backButtonImage from "../assets/back.svg";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const CameraComponent = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -32,7 +33,9 @@ const CameraComponent = () => {
           video.srcObject = _stream;
         }
       }).catch((error) => {
-        alert("Error accessing camera: " + error.message);
+        toast("Error accessing camera: " + error.message, {
+          type: "error"
+        })
       }).finally(() => {
         isSwitchingCamera.current = false;
       })
