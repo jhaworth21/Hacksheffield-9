@@ -4,7 +4,7 @@
   "description": "PMMS Backend",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "nodemon --env-file=cfg/.env app.js"
   },
   "author": "Bravewave",
   "license": "ISC",
