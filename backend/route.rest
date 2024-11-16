@@ -30,4 +30,32 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/tasks
+GET http://localhost:3000/users/6738d7bd965cb2e224c7f09f/tasks
+
+###
+
+POST http://localhost:3000/users/6738d7bd965cb2e224c7f09f/tasks
+Content-Type: application/json
+
+{
+    "title" : "Gym",
+    "description" : "I aim to go to the gym everyday",
+    "lastCompleted" : "2024-11-14"
+}
+
+###
+
+DELETE http://localhost:3000/users/6738d7bd965cb2e224c7f09f/tasks/4
+
+###
+
+PATCH http://localhost:3000/users/6738d7bd965cb2e224c7f09f/tasks/1
+Content-Type: application/json
+
+{
+    "description" : "I aim to go to the gym once a week"
+}
+
+
+
+
