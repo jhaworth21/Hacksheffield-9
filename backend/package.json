@@ -1,0 +1,22 @@
+{
+  "name": "please-make-me-study-backend",
+  "version": "0.0.0",
+  "description": "PMMS Backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon --env-file=./cfg/.env app.js"
+  },
+  "author": "Bravewave",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-openid-connect": "^2.17.1",
+    "multer": "^1.4.5-lts.1",
+    "please-make-me-study-backend": "file:"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
