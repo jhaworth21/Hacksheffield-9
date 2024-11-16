@@ -29,7 +29,11 @@ const CameraComponent = () => {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         const image = canvas.toDataURL('image/png');
-        console.log(image);
+        console.log(image)
+
+        // TODO send image to server
+
+        navigate('/tasks')
       }
     }
   };
