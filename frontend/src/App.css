@@ -4,3 +4,8 @@
   --colour-3: #608BC1;
   --colour-4: #CBDCEB;
 }
+
+body {
+  background-color: var(--colour-1);
+  font-weight: bold;
+}

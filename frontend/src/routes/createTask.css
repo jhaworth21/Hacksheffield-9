@@ -1,12 +1,13 @@
 .createGoal {
-    margin: 10px;
-    background-color: var(--color-1);
+    margin: 3%;
 }
 
 .createTask__back_button {
-    margin: 1.5rem;
+    margin: 1rem;
     background: none;
     border: none;
+    z-index: 1;
+    position: relative;
 }
 
 .createTask__back_button__image {
@@ -14,11 +15,13 @@
 }
 
 .createTask__title {
-    margin: 5% 0 2% 0;
+    margin: 2% 0 2% 0;
     text-align: center;
+    z-index: 0;
 }
 
 .createTask__main_content {
+    z-index: 0;
     position: absolute;
     top: 27.5%;
     left: 50%;
@@ -40,15 +43,18 @@
 .createGoal label {
     width: 75%;
     margin: auto;
+    padding-bottom: 1rem;
 }
 
 .createGoal #title{
     width: 75%;
     margin: auto;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
 }
 
 .createTask__submit {
-    background-color: var(--colour-2);
+    background-color: var(--colour-3);
     display: block;
     width: 65%;
     color: white;
@@ -64,4 +70,6 @@
     min-height: 5rem;
     width: 75%;
     margin: auto;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
 }
