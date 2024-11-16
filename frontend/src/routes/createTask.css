@@ -1,7 +1,35 @@
-.createTask__back_button {
+.createGoal {
+    margin: 10px;
+}
 
+.createTask__back_button {
+    background: none;
+    border: none;
 }
 
 .createTask__back_button__image {
-    height: 50px;
+    height: 20px;
+}
+
+.createTask__title {
+    margin: 10px 0 20px 0;
+}
+
+.createTask__form_section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.createTask__submit {
+    width: 100%;
+
+    background-color: #CBDCEB;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.createTask__form_section textarea {
+    resize: vertical;
 }
