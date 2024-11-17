@@ -13,6 +13,10 @@
     font-size: .75rem;
 }
 
+.tasks__title-bar__logo {
+    height: 5rem;
+}
+
 .tasks__title-bar__add-task {
     display: flex;
     align-items: center;
@@ -23,8 +27,8 @@
 
     background-color: #CBDCEB;
 
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 
     cursor: pointer;
 }
@@ -60,5 +64,10 @@
         color: white;
         font-size: 1rem;
     }
-    
+}
+
+@media (max-width: 475px) {
+    .tasks__title-bar__logo {
+        display: none;
+    }
 }
