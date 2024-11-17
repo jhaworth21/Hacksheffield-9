@@ -2,11 +2,11 @@ name: Build and Push Container Images
 
 on:
   push:
-    branches:
-      - containers
+    tags:
+      - 'v*' # Matches tags starting with "v" (e.g., v1.0, v2.1.0)
   pull_request:
     branches:
-      - containers
+      - main
 
 permissions:
   contents: read

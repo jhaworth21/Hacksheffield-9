@@ -3,13 +3,12 @@ services:
   frontend:
     image: ghcr.io/jhaworth21/hacksheffield-9/frontend:latest
     ports:
-      - "6002:5173"
-#        - "5173:6002"
+      - "6002:80"
 
   backend:
     image: ghcr.io/jhaworth21/hacksheffield-9/backend:latest
     ports:
-        - "3000:6001"
+        - "6001:3000"
     env_file:
       - .backend.secrets.env
     environment:
