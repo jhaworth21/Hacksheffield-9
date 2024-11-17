@@ -69,10 +69,6 @@ router.patch('/', async (req, res) => {
         // Extract taskId from the request body
         const taskId = req.body._id;
 
-        if (!taskId) {
-            return res.status(400).json({ message: 'Task _id is required.' });
-        }
-
         // Find the task by its _id
         const task = user.tasks.id(taskId);
 
@@ -93,6 +89,28 @@ router.patch('/', async (req, res) => {
         res.json({ message: 'Task updated successfully.', task });
     } catch (err) {
         console.error('Error updating task:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+router.get('/:taskId', async (req, res) => {
+    const userId = req.oidc.user.sub; // Auth0 ID of the user
+    const taskId = req.params.taskId;
+
+    try {
+        // Find the user by their Auth0 ID
+        const user = await User.findOne({ auth0Id: userId });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Find the task by its _id
+        const task = user.tasks.id(taskId);
+
+        res.json(task)
+    } catch (err) {
+        console.error('Error fetching task:', err);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
