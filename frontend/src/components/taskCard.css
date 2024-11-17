@@ -40,3 +40,9 @@ span {
 .taskCard__actions__flame--greyscale {
     filter: grayscale(100%);
 }
+
+.taskCard__actions__loading {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
