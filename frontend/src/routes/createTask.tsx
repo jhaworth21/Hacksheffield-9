@@ -50,8 +50,9 @@ const CreateTask = () => {
       <button onClick={goBack} className="createTask__back_button">
         <img src={backButtonImage} alt="Back" className="createTask__back_button__image"/>
       </button>
-      <h1 className="createTask__title">Create Goal</h1>
-
+      <div className='createTask__main_content'>
+        <h1 className="createTask__title">Create Goal</h1>
+        
       <form onSubmit={handleSubmit}>
         <div className="createTask__form_section">
           <label htmlFor="title">Title:</label>
