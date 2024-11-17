@@ -132,7 +132,7 @@ router.get('/:taskId', async (req, res) => {
 });
 
 
-router.delete('/', async (req, res) => {
+router.delete('/:taskId', async (req, res) => {
     if (!req.oidc.user) {
         return res.status(401).json({error: "Unauthorized"});
     }
@@ -148,7 +148,7 @@ router.delete('/', async (req, res) => {
         }
 
         // Extract taskId from the request body
-        const taskId = req.body._id;
+        const taskId = req.params.taskId;
 
         if (!taskId) {
             return res.status(400).json({message: 'Task _id is required.'});
@@ -161,9 +161,9 @@ router.delete('/', async (req, res) => {
             return res.status(404).json({message: 'Task not found.'});
         }
 
-        task.remove(); // Remove the task from the tasks array
+        user.tasks = user.tasks.filter((task) => task._id.toString() !== taskId);
 
-        await user.save();
+        await user.save(); // Save the changes
         res.json({message: 'Task deleted successfully.'});
     } catch (err) {
         console.error('Error deleting task:', err);
