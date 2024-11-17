@@ -44,7 +44,7 @@ const Tasks = () => {
     <div className="tasks">
 
       <div className="tasks__title-bar">
-      <img src={logo} alt='Logo' className='tasks__title-bar__logo'></img>
+        <img src={logo} alt='Logo' className='tasks__title-bar__logo'></img>
         <h1>Make Me Study</h1>
 
         <button className="tasks__title-bar__add-task" onClick={addTask}>
@@ -55,10 +55,10 @@ const Tasks = () => {
 
       <div className="tasks__tasks-wrapper">
         <h2 className='tasks_task-wrapper__title'>Current Goals:</h2>
-        {tasks.map((task) => (
         {
           loading && <p>Loading tasks...</p>
         }
+
         {!loading && tasks.map((task) => (
           <TaskCard key={task.id} task={task}/>
         ))}
