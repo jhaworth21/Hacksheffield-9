@@ -4,6 +4,7 @@ const taskSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   streakCount: { type: Number, default: 0 },
+  pending: { type: Boolean },
   lastCompleted: { type: String }
 }, { _id: true });
 
