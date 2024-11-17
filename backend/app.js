@@ -8,11 +8,12 @@ const port = process.env.PORT || 3000;
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection;
 
+const isDeployed = process.env.DEPLOYED === 'true';
 const auth_config = {
     authRequired: false,
     auth0Logout: true,
     secret: '744ac41437170dce474acb1bdc59d4379028ebabb767df49211a4ce2bc3e92f1',
-    baseURL: 'http://localhost:5173',
+    baseURL: isDeployed ? 'https://pleasemakeme.study' : 'http://localhost:5173',
     clientID: '93ajc3U7fnprGkkgZ5d8LPkLAfmfsNg5',
     issuerBaseURL: 'https://dev-s5ynupfjsplm2b3x.us.auth0.com'
 };
