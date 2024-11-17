@@ -113,8 +113,18 @@ router.post("/", async (req, res) => {
 
         // Update the task with the Gemini result
         if (geminiResponse) {
+            const currentDay = new Date().toISOString().split('T')[0];
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayString = yesterday.toISOString().split('T')[0];
+
+            if ([currentDay, yesterdayString].includes(task.lastCompleted)) {
+              task.streakCount++;
+            } else {
+                task.streakCount = 1;
+            }
+
             task.lastCompleted = new Date().toISOString().split("T")[0];
-            task.streakCount++;
 
             await user.save();
         }
