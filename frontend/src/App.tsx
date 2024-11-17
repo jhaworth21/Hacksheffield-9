@@ -6,6 +6,8 @@ import CreateTask from "./routes/createTask.tsx";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RequireSignedIn from "./components/requireSignedIn.tsx";
+import EditTask from './routes/editTask';
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
             <Route path="/" element={<Tasks/>}/>
             <Route path="camera/:taskId" element={<Camera/>}/>
             <Route path="/create-task" element={<CreateTask/>}/>
+            <Route path="/edit-task/:taskId" element={<EditTask />} />
           </Routes>
         </BrowserRouter>
       </RequireSignedIn>

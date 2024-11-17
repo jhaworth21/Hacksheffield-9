@@ -104,6 +104,9 @@ router.post("/", async (req, res) => {
         return res.status(404).json({error: "Task not found."});
     }
 
+    task.pending = true;
+    await user.save();
+
     // Respond immediately to prevent the frontend from hanging
     res.status(202).json({message: "Image processing started."});
 
@@ -113,11 +116,23 @@ router.post("/", async (req, res) => {
 
         // Update the task with the Gemini result
         if (geminiResponse) {
-            task.lastCompleted = new Date().toISOString().split("T")[0];
-            task.streakCount++;
+            const currentDay = new Date().toISOString().split('T')[0];
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayString = yesterday.toISOString().split('T')[0];
 
-            await user.save();
+            if ([currentDay, yesterdayString].includes(task.lastCompleted)) {
+                task.streakCount++;
+            } else {
+                task.streakCount = 1;
+            }
+
+            task.lastCompleted = new Date().toISOString().split("T")[0];
         }
+
+        task.pending = false;
+
+        await user.save();
     } catch (error) {
         console.error("Error processing and storing Gemini result:", error);
     }
