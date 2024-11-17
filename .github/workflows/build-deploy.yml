@@ -1,5 +1,9 @@
 name: Build and Push Container Images
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
     branches:
@@ -34,14 +38,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN}}
 
-      # 4. Build and push Frontend Docker image to GHCR
+      # 4. Set repository name to lowercase
+      - name: Set lowercase repository name
+        id: repo
+        run: echo "REPO_NAME=${{ github.repository }}" | tr '[:upper:]' '[:lower:]' > $GITHUB_ENV
+
+      # 5. Build and push Frontend Docker image to GHCR
       - name: Build Frontend Docker image
         run: |
-          docker build -t ghcr.io/jharworth21/hacksheffield-9/frontend:latest ./frontend
-          docker push ghcr.io/jharworth21/hacksheffield-9/frontend:latest
+          docker build -t ghcr.io/${{ env.REPO_NAME }}/frontend:latest ./frontend
+          docker push ghcr.io/${{ env.REPO_NAME }}/frontend:latest
 
-      # 5. Build and push Backend Docker image to GHCR
+      # 6. Build and push Backend Docker image to GHCR
       - name: Build Backend Docker image
         run: |
-          docker build -t ghcr.io/jharworth21/hacksheffield-9/backend:latest ./backend
-          docker push ghcr.io/jharworth21/hacksheffield-9/backend:latest
+          docker build -t ghcr.io/${{ env.REPO_NAME }}/backend:latest ./backend
+          docker push ghcr.io/${{ env.REPO_NAME }}/backend:latest
