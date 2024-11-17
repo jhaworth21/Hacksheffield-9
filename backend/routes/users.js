@@ -14,6 +14,10 @@ router.get('/', async (req, res) => {
 
 // Get the current user by `auth0Id`
 router.get('/', async (req, res) => {
+    if (!req.oidc.user) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
+
     const userId = req.oidc.user.sub; // Auth0 ID of the logged-in user
 
     if (!userId) {
@@ -64,7 +68,11 @@ router.post('/', async (req, res) => {
 
 // Update the current user's profile
 router.patch('/', async (req, res) => {
-    const userId = req.oidc?.user?.sub; // Auth0 ID of the logged-in user
+    if (!req.oidc.user) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
+
+    const userId = req.oidc.user.sub; // Auth0 ID of the logged-in user
 
     if (!userId) {
         return res.status(401).json({ message: 'Unauthorized. Please log in.' });
@@ -94,6 +102,10 @@ router.patch('/', async (req, res) => {
 
 // Delete the current user
 router.delete('/', async (req, res) => {
+    if (!req.oidc.user) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
+
     const userId = req.oidc.user.sub; // Auth0 ID of the logged-in user
 
     if (!userId) {

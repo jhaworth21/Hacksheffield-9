@@ -3,6 +3,10 @@ const router = express.Router();
 const User = require("../models/user");
 
 router.get("/", async (req, res) => {
+    if (!req.oidc.user) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
+
     const userId = req.oidc.user.sub; // `auth0Id` of the user
 
     try {
@@ -21,6 +25,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+    if (!req.oidc.user) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
+
     const userId = req.oidc.user.sub; // `auth0Id` of the user
     const newTask = req.body; // Task data from the request body
 
@@ -42,7 +50,7 @@ router.post("/", async (req, res) => {
             description: newTask.description,
             streakCount: newTask.streakCount || 0, // Default to 0 if not provided
             lastCompleted: newTask.lastCompleted || null,
-            pending : false
+            pending: false
         });
 
         // Save the updated user document
@@ -56,14 +64,18 @@ router.post("/", async (req, res) => {
 });
 
 router.patch('/', async (req, res) => {
+    if (!req.oidc.user) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
+
     const userId = req.oidc.user.sub; // Auth0 ID of the user
 
     try {
         // Find the user by their Auth0 ID
-        const user = await User.findOne({ auth0Id: userId });
+        const user = await User.findOne({auth0Id: userId});
 
         if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
+            return res.status(404).json({message: 'User not found.'});
         }
 
         // Extract taskId from the request body
@@ -73,7 +85,7 @@ router.patch('/', async (req, res) => {
         const task = user.tasks.id(taskId);
 
         if (!task) {
-            return res.status(404).json({ message: 'Task not found.' });
+            return res.status(404).json({message: 'Task not found.'});
         }
 
         // Update the task fields
@@ -86,23 +98,27 @@ router.patch('/', async (req, res) => {
         }
 
         await user.save();
-        res.json({ message: 'Task updated successfully.', task });
+        res.json({message: 'Task updated successfully.', task});
     } catch (err) {
         console.error('Error updating task:', err);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({message: 'Internal Server Error'});
     }
 });
 
 router.get('/:taskId', async (req, res) => {
+    if (!req.oidc.user) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
+
     const userId = req.oidc.user.sub; // Auth0 ID of the user
     const taskId = req.params.taskId;
 
     try {
         // Find the user by their Auth0 ID
-        const user = await User.findOne({ auth0Id: userId });
+        const user = await User.findOne({auth0Id: userId});
 
         if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
+            return res.status(404).json({message: 'User not found.'});
         }
 
         // Find the task by its _id
@@ -111,43 +127,47 @@ router.get('/:taskId', async (req, res) => {
         res.json(task)
     } catch (err) {
         console.error('Error fetching task:', err);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({message: 'Internal Server Error'});
     }
 });
 
 
 router.delete('/', async (req, res) => {
+    if (!req.oidc.user) {
+        return res.status(401).json({error: "Unauthorized"});
+    }
+
     const userId = req.oidc.user.sub; // Auth0 ID of the user
 
     try {
         // Find the user by their Auth0 ID
-        const user = await User.findOne({ auth0Id: userId });
+        const user = await User.findOne({auth0Id: userId});
 
         if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
+            return res.status(404).json({message: 'User not found.'});
         }
 
         // Extract taskId from the request body
         const taskId = req.body._id;
 
         if (!taskId) {
-            return res.status(400).json({ message: 'Task _id is required.' });
+            return res.status(400).json({message: 'Task _id is required.'});
         }
 
         // Find and remove the task by its _id
         const task = user.tasks.id(taskId);
 
         if (!task) {
-            return res.status(404).json({ message: 'Task not found.' });
+            return res.status(404).json({message: 'Task not found.'});
         }
 
         task.remove(); // Remove the task from the tasks array
 
         await user.save();
-        res.json({ message: 'Task deleted successfully.' });
+        res.json({message: 'Task deleted successfully.'});
     } catch (err) {
         console.error('Error deleting task:', err);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({message: 'Internal Server Error'});
     }
 });
 
