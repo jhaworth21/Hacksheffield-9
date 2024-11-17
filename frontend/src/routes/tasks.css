@@ -17,7 +17,13 @@
     height: 5rem;
 }
 
-.tasks__title-bar__add-task {
+.tasks__title-bar__action_buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tasks__title-bar__action_buttons__button {
     display: flex;
     align-items: center;
     justify-content: center;
