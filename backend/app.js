@@ -1,4 +1,3 @@
-require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const {auth} = require('express-openid-connect');
@@ -55,8 +54,6 @@ app.use(async (req, res, next) => {
     next(); // Proceed to the next handler
 });
 
-// app.use(express.static(path.join(__dirname, "public")));
-
 // req.isAuthenticated is provided from the auth router
 app.get('/', (req, res) => {
     console.log(req.oidc.isAuthenticated())
@@ -82,3 +79,4 @@ const classifyRouter = require('./routes/classify.js');
 app.use('/api/classify', classifyRouter);
 
 app.listen(port, () => console.log(`Server is running on port`, port));
+// balls
