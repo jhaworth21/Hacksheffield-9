@@ -46,3 +46,33 @@ span {
     height: 30px;
     margin-right: 10px;
 }
+
+
+/* Style for the "Modify" link */
+.taskCard__actions__modify {
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    background-color: var(--colour-3); /* Use a consistent color from your theme */
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Ensure proper alignment */
+}
+
+.taskCard__actions__modify:hover {
+    background-color: var(--colour-2); /* Lighter or contrasting hover color */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.taskCard__actions__modify:active {
+    transform: scale(0.95); /* Pressed button effect */
+}
+
+.taskCard__actions__modify--disabled {
+    background-color: gray; /* Disabled state color */
+    cursor: not-allowed;
+}

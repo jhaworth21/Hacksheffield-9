@@ -52,6 +52,12 @@ const TaskCard = ({task}: TaskCardProps) => {
     navigate(`/camera/${task.id}`)
   }
 
+  const handleModifyClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent the default anchor behavior
+    e.stopPropagation(); // Prevent triggering the card's onClick handler
+    navigate(`/edit-task/${task.id}`);
+  };
+
   return (
     <div className={`taskCard ${hasCompletedToday ? '__completed' : ''}`}
          onClick={handleTaskCardClick}>
@@ -71,6 +77,14 @@ const TaskCard = ({task}: TaskCardProps) => {
           className={`taskCard__actions__flame ${!hasCompletedToday ? 'taskCard__actions__flame--greyscale' : ''}`}
         />
         <span>{currentStreak}</span>
+        <a
+          href="#"
+          onClick={handleModifyClick}
+          className="taskCard__actions__modify"
+        >
+          Modify
+        </a>
+
       </div>
     </div>
   );

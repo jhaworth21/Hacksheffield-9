@@ -63,29 +63,56 @@ const EditTask = () => {
       });
   };
   
+  const deleteTask = () => {
+    if (window.confirm('Are you sure you want to delete this task?')) {
+      fetch(`/api/tasks/${taskId}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.json().then((data) => {
+              throw new Error(data.message || 'Failed to delete task.');
+            });
+          }
+          return response.json();
+        })
+        .then(() => {
+          toast.success('Task deleted successfully.');
+          navigate('/'); // Redirect to the tasks list after deletion
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          toast.error(error.message || 'Failed to delete task.');
+        });
+    }
+  };
   
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Title:
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </label>
-      <label>
-        Description:
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </label>
-      <button type="submit" disabled={isSaving}>
-        {isSaving ? 'Saving...' : 'Save Task'}
-      </button>
-    </form>
+    <>
+        <form onSubmit={handleSubmit}>
+        <label>
+            Title:
+            <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            />
+        </label>
+        <label>
+            Description:
+            <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            />
+        </label>
+        <button type="submit" disabled={isSaving}>
+            {isSaving ? 'Saving...' : 'Save Task'}
+        </button>
+        </form>
+
+        <button onClick={deleteTask}>Delete task</button>
+    </>
   );
 };
 
