@@ -20,6 +20,10 @@ const auth_config = {
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(auth_config));
 
+// Increase the limit (e.g., to 50MB)
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
 // Middleware to handle user persistence after Auth0 processes the callback
 app.use(async (req, res, next) => {
     if (req.oidc?.user) {
@@ -70,5 +74,8 @@ const loggedinRouter = require('./routes/isloggedin.js');
 const {findOne} = require("./models/user");
 const User = require("./models/user");
 app.use('/api/isloggedin', loggedinRouter);
+
+const classifyRouter = require('./routes/classify.js');
+app.use('/api/classify', classifyRouter);
 
 app.listen(port, () => console.log(`Server is running on port`, port));
