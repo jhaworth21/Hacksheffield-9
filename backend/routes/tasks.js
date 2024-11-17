@@ -41,7 +41,8 @@ router.post("/", async (req, res) => {
             title: newTask.title,
             description: newTask.description,
             streakCount: newTask.streakCount || 0, // Default to 0 if not provided
-            lastCompleted: newTask.lastCompleted || null
+            lastCompleted: newTask.lastCompleted || null,
+            pending : false
         });
 
         // Save the updated user document
