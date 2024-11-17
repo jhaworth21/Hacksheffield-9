@@ -3,7 +3,7 @@ type Task = {
   title: string;
   description: string;
   streak: number;
-  lastCompleted: string;
+  lastCompleted: string | null;
 }
 
 export default Task;

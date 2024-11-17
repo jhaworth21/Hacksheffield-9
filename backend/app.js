@@ -1,7 +1,7 @@
-require ('dotenv').config()
+require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
-const { auth } = require('express-openid-connect');
+const {auth} = require('express-openid-connect');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -14,11 +14,41 @@ const auth_config = {
     secret: '744ac41437170dce474acb1bdc59d4379028ebabb767df49211a4ce2bc3e92f1',
     baseURL: 'http://localhost:5173',
     clientID: '93ajc3U7fnprGkkgZ5d8LPkLAfmfsNg5',
-    issuerBaseURL:'https://dev-s5ynupfjsplm2b3x.us.auth0.com'
-  };
+    issuerBaseURL: 'https://dev-s5ynupfjsplm2b3x.us.auth0.com'
+};
 
-  // auth router attaches /login, /logout, and /callback routes to the baseURL
-  app.use(auth(auth_config));
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(auth_config));
+
+// Middleware to handle user persistence after Auth0 processes the callback
+app.use(async (req, res, next) => {
+    if (req.oidc?.user) {
+        console.log("User exists on req.oidc");
+        const { sub, email, name } = req.oidc.user;
+        console.log(`User: ${sub} ${email} ${name}`);
+
+        try {
+            const existingUser = await User.findOne({ auth0Id: sub });
+            console.log(`Existing user: ${existingUser}`);
+            if (!existingUser) {
+                await User.create({
+                    auth0Id: sub,
+                    username: email,
+                    email,
+                    tasks: [],
+                    profile: {
+                        fullName: name,
+                        profilePicture: '',
+                    },
+                });
+                console.log('New user registered:', req.oidc.user);
+            }
+        } catch (err) {
+            console.error('Error handling user:', err);
+        }
+    }
+    next(); // Proceed to the next handler
+});
 
 // app.use(express.static(path.join(__dirname, "public")));
 
@@ -39,6 +69,8 @@ app.use('/api/users', usersRouters);
 app.use('/api/tasks', tasksRouters);
 
 const loggedinRouter = require('./routes/isloggedin.js');
+const {findOne} = require("./models/user");
+const User = require("./models/user");
 app.use('/api/isloggedin', loggedinRouter);
 
 app.listen(port, () => console.log(`Server is running on port`, port));

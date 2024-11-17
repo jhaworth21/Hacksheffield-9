@@ -1,23 +1,21 @@
-GET http://localhost:3000/users
+GET http://localhost:3000/api/users
 
 ###
 
-POST http://localhost:3000/users
+POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-    "auth0Id" : "12345",
-    "username" : "test",
-    "email" : "test@test.com",
+    "auth0Id" : "54321",
+    "email" : "test2@test.com",
     "profile" : {
-        "fullName" : "testuser",
         "profilePicture" : ""
     }
 }
 
 ###
 
-DELETE http://localhost:3000/users/6738d6bdaeab4b86717562e7
+DELETE http://localhost:3000/api/users/6738d7bd965cb2e224c7f09f
 
 ###
 
@@ -30,7 +28,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/users/6738d7bd965cb2e224c7f09f/tasks
+GET http://localhost:3000/api/tasks
 
 ###
 
