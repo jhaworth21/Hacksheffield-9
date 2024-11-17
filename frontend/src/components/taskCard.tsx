@@ -4,6 +4,7 @@ import "./taskCard.css"
 import flame from "../assets/flame.svg"
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import loadingGif from "../assets/loading.gif";
 
 type TaskCardProps = {
   task: Task;
@@ -41,14 +42,29 @@ const TaskCard = ({task}: TaskCardProps) => {
       return;
     }
 
+    if (task.pending) {
+      toast("This task is currently being classified. Please wait.", {
+        type: "error"
+      })
+      return;
+    }
+
     navigate(`/camera/${task.id}`)
   }
 
   return (
-    <div className={`taskCard ${hasCompletedToday ? '__completed' : ''}`} onClick={handleTaskCardClick}>
+    <div className={`taskCard ${hasCompletedToday ? '__completed' : ''}`}
+         onClick={handleTaskCardClick}>
       <span>{task.title}</span>
 
       <div className="taskCard__actions">
+        {task.pending && (
+          <img
+            src={loadingGif}
+            alt="A little throbber"
+            className="taskCard__actions__loading"
+          />
+        )}
         <img
           src={flame}
           alt="flame"

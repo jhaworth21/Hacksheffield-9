@@ -4,6 +4,7 @@ type Task = {
   description: string;
   streak: number;
   lastCompleted: string | null;
+  pending: boolean;
 }
 
 export default Task;
