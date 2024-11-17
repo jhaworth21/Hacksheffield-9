@@ -1,9 +1,5 @@
 name: Build and Push Container Images
 
-permissions:
-  contents: read
-  packages: write
-
 on:
   push:
     branches:
@@ -15,6 +11,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repo
