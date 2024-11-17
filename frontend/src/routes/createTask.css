@@ -4,6 +4,7 @@
 
 .createTask__back_button {
     margin: 1rem;
+    margin-left: 10%;
     background: none;
     border: none;
     z-index: 1;

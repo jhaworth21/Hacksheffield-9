@@ -1,11 +1,16 @@
-.tasks {
-    margin: 10px;
-}
-
 .tasks__title-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    margin: auto;
+    margin-bottom: 5%;
+    background-color: var(--colour-3);
+    color: white;
+    font-size: .75rem;
 }
 
 .tasks__title-bar__add-task {
@@ -27,4 +32,33 @@
 .tasks__title-bar__add-task__image {
     width: 20px;
     height: 20px;
+}
+
+.tasks_task-wrapper__title{
+    width: 75%;
+    margin: auto;
+    margin-bottom: 1.5rem;
+}
+
+.tasks__tasks-wrapper {
+    max-width: 75rem;
+    margin: auto;
+}
+
+@media (min-width: 800px) {
+    .tasks__title-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        padding-left: 8rem;
+        padding-right: 8rem;
+        margin: auto;
+        margin-bottom: 5%;
+        background-color: var(--colour-3);
+        color: white;
+        font-size: 1rem;
+    }
+    
 }

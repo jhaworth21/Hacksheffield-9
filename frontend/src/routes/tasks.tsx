@@ -26,7 +26,7 @@ const Tasks = () => {
         title: "Study for math test",
         description: "Requires a photo of the math test",
         streak: 3,
-        lastCompleted: "2024-11-16"
+        lastCompleted: "2024-11-17"
       }
     ])
   }, []);
@@ -39,7 +39,7 @@ const Tasks = () => {
     <div className="tasks">
 
       <div className="tasks__title-bar">
-        <h1>Goals</h1>
+        <h1>Make Me Study</h1>
 
         <button className="tasks__title-bar__add-task" onClick={addTask}>
           <img src={plusButton} alt="Add goal" className="tasks__title-bar__add-task__image"/>
@@ -48,6 +48,7 @@ const Tasks = () => {
 
 
       <div className="tasks__tasks-wrapper">
+        <h2 className='tasks_task-wrapper__title'>Current Goals:</h2>
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task}/>
         ))}

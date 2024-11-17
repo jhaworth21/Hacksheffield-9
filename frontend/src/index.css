@@ -1,6 +1,20 @@
-body {
+:root {
+    --colour-1: #F3F3E0;
+    --colour-2: #133E87;
+    --colour-3: #608BC1;
+    --colour-4: #CBDCEB;
+  }
+  
+  body {
+    background-color: var(--colour-1);
+    font-weight: bold;
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
-}
+  }
+
+html {
+    padding: 0;
+    margin: 0;
+  }
+
