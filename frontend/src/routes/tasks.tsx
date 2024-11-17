@@ -4,8 +4,9 @@ import TaskCard from "../components/taskCard.tsx";
 import Task from "../types/task.ts";
 import plusButton from "../assets/plus-icon.svg";
 import logo from "../assets/logo.png"
+import signoutIcon from "../assets/sign-out-icon.svg";
 import "./tasks.css"
-import {toast, useToast} from "react-toastify";
+import {toast} from "react-toastify";
 
 const Tasks = () => {
 
@@ -73,6 +74,10 @@ const Tasks = () => {
     navigate("/create-task")
   }
 
+  const signOut = () => {
+    window.location.href = "/logout";
+  }
+
   return (
     <div className="tasks">
 
@@ -80,9 +85,15 @@ const Tasks = () => {
         <img src={logo} alt='Logo' className='tasks__title-bar__logo'></img>
         <h1>Make Me Study</h1>
 
-        <button className="tasks__title-bar__add-task" onClick={addTask}>
-          <img src={plusButton} alt="Add goal" className="tasks__title-bar__add-task__image"/>
-        </button>
+        <div className="tasks__title-bar__action_buttons">
+          <button className="tasks__title-bar__action_buttons__button" onClick={addTask}>
+            <img src={plusButton} alt="Add goal" className="tasks__title-bar__add-task__image"/>
+          </button>
+
+          <button className="tasks__title-bar__action_buttons__button" onClick={signOut}>
+            <img src={signoutIcon} alt="Sign out" className="tasks__title-bar__add-task__image"/>
+          </button>
+        </div>
       </div>
 
 
