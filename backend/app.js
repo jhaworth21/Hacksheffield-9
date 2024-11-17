@@ -50,8 +50,6 @@ app.use(async (req, res, next) => {
     next(); // Proceed to the next handler
 });
 
-// app.use(express.static(path.join(__dirname, "public")));
-
 // req.isAuthenticated is provided from the auth router
 app.get('/', (req, res) => {
     console.log(req.oidc.isAuthenticated())
