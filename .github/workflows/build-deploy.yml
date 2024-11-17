@@ -4,9 +4,6 @@ on:
   push:
     tags:
       - 'v*' # Matches tags starting with "v" (e.g., v1.0, v2.1.0)
-  pull_request:
-    branches:
-      - main
 
 permissions:
   contents: read
