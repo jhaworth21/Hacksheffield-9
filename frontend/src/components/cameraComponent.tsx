@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import "./cameraComponent.css";
 import switchCameraImage from "../assets/switch-camera.svg";
 import backButtonImage from "../assets/back.svg";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 
 const CameraComponent = () => {
@@ -12,6 +12,9 @@ const CameraComponent = () => {
   const streamCamera = useRef<string | null>(null);
   const [currentCamera, setCurrentCamera] = useState<'user' | 'environment'>('user');
   const navigate = useNavigate();
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+
+  const {taskId} = useParams()
 
   const startCamera = async (facingMode: string) => {
     if (isSwitchingCamera.current) {
@@ -54,11 +57,46 @@ const CameraComponent = () => {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         const image = canvas.toDataURL('image/png');
-        console.log(image)
+
+        setIsUploading(true)
 
         // TODO send image to server
+        const uploadPromise = fetch("/api/classify", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "imageDataUrl": image,
+            "taskId": taskId
+          })
+        }).then(async response => {
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            navigate('/', {state: {data}})
+          } else {
+            const error = await response.json();
+            toast("Error: " + error.message, {
+              type: "error"
+            })
 
-        navigate('/')
+            navigate('/')
+          }
+        }).catch(error => {
+          toast("Error: " + error.message, {
+            type: "error"
+          })
+
+          navigate('/')
+        }).finally(() => {
+          setIsUploading(false)
+        })
+
+        toast.promise(uploadPromise, {
+          success: "Image uploaded successfully!",
+          pending: "Uploading image...",
+        })
       }
     }
   };
